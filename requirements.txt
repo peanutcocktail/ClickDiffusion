@@ -3,3 +3,6 @@ jsonschema
 pillow
 diffusers
 openai
+matplotlib
+numpy
+transformers
