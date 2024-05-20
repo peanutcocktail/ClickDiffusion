@@ -4,6 +4,7 @@ import requests
 from transformers import SamModel, SamProcessor
 import matplotlib.pyplot as plt
 import numpy as np
+import devicetorch
 
 def show_mask(mask, ax, random_color=False):
     if random_color:
@@ -39,7 +40,8 @@ def show_masks_on_image(raw_image: Image, masks, scores):
     return axes
 
 def predict_mask(image: Image, input_box):
-    device = "cuda" if torch.cuda.is_available() else "cpu"
+    device = devicetorch.get(torch)
+#    device = "cuda" if torch.cuda.is_available() else "cpu"
     model = SamModel.from_pretrained("facebook/sam-vit-huge").to(device)
     processor = SamProcessor.from_pretrained("facebook/sam-vit-huge")
 

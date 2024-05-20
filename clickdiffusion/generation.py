@@ -2,6 +2,9 @@ from diffusers import StableDiffusionGLIGENTextImagePipeline, StableDiffusionXLI
 from diffusers.utils import load_image
 import PIL
 import torch
+import devicetorch
+
+device = devicetorch.get(torch)
 
 class InpaintAndUpscale():
     """
@@ -12,14 +15,14 @@ class InpaintAndUpscale():
         self.gligen_pipe = StableDiffusionGLIGENTextImagePipeline.from_pretrained(
             "anhnct/Gligen_Inpainting_Text_Image",
             torch_dtype=torch.float16
-        ).to("cuda")
+        ).to(device)
 
         self.upscaler = StableDiffusionXLImg2ImgPipeline.from_pretrained(
             "stabilityai/stable-diffusion-xl-refiner-1.0", 
             torch_dtype=torch.float16, 
             variant="fp16", 
             use_safetensors=True
-        ).to("cuda")
+        ).to(device)
         self.use_lcm = use_lcm
 
         if self.use_lcm:
@@ -31,7 +34,7 @@ class InpaintAndUpscale():
                 variant="fp16"
             )   
             self.single_object_model.scheduler = LCMScheduler.from_config(self.single_object_model.scheduler.config)
-            self.single_object_model.to("cuda")
+            self.single_object_model.to(device)
             # load and fuse lcm lora
             self.single_object_model.load_lora_weights(adapter_id)
             self.single_object_model.fuse_lora()
@@ -41,7 +44,7 @@ class InpaintAndUpscale():
                 torch_dtype=torch.float16, 
                 variant="fp16", 
                 use_safetensors=True
-            ).to("cuda")
+            ).to(device)
 
     def generate_object_image(self, prompt):
         """
