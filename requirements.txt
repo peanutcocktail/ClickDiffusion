@@ -8,3 +8,4 @@ numpy
 transformers
 accelerate
 devicetorch
+peft
