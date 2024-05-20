@@ -7,4 +7,5 @@ setuptools.setup(
      author_email="alechelbling@gatech.edu",
      description="A package for precise image manipulation from natural language and visual instructions.",
      packages=setuptools.find_packages(),
+     include_package_data=True,
  )
