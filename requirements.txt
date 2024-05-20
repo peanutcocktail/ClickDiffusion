@@ -2,3 +2,4 @@ fastapi
 jsonschema
 pillow
 diffusers
+openai
