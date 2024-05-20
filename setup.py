@@ -8,4 +8,5 @@ setuptools.setup(
      description="A package for precise image manipulation from natural language and visual instructions.",
      packages=setuptools.find_packages(),
      include_package_data=True,
+     setup_requires=['setuptools_scm'],
  )

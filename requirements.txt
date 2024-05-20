@@ -6,3 +6,4 @@ openai
 matplotlib
 numpy
 transformers
+accelerate
